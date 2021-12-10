@@ -13,14 +13,14 @@ import java.util.*;
 @Service
 public class CarService {
     private final CarRepo carRepo;
-    private final static Pageable pageable = PageRequest.of(0,100,Sort.Direction.ASC,"name","model");
+    private final static Pageable PAGEABLE = PageRequest.of(0,100,Sort.Direction.ASC,"name","model");
     public CarService(CarRepo carRepo) {
         this.carRepo = carRepo;
     }
 
     public List<Car> findAll(){
         List<Car> cars = new ArrayList<>();
-        carRepo.findAll(pageable)
+        carRepo.findAll(PAGEABLE)
                 .iterator()
                 .forEachRemaining(cars::add);
         return cars;
@@ -57,14 +57,14 @@ public class CarService {
 
     public List<Car> getCarByName(String name){
         List<Car> cars = new ArrayList<>();
-        this.carRepo.findByName(name, pageable)
+        this.carRepo.findByName(name, PAGEABLE)
             .iterator()
             .forEachRemaining(cars::add);
         return cars;
      }
     public List<Car> getCarByOwner(String owner){
         List<Car> cars = new ArrayList<>();
-        this.carRepo.findByOwner(owner, pageable)
+        this.carRepo.findByOwner(owner, PAGEABLE)
                 .iterator()
                 .forEachRemaining(cars::add);
         return cars;
@@ -72,7 +72,7 @@ public class CarService {
 
     public List<Car> search(String name){
         List<Car> cars = new ArrayList<>();
-        this.carRepo.findByNameOrOwner(name,pageable)
+        this.carRepo.findByNameOrOwner(name,PAGEABLE)
                 .iterator()
                 .forEachRemaining(cars::add);
         return cars;
