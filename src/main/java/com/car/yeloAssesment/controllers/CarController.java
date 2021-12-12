@@ -48,7 +48,7 @@ public class CarController {
         return ResponseEntity.status(HttpStatus.CREATED).location(location).build();
     }
 
-    @PostMapping("/{id}")
+    @PutMapping("/{id}")
     public Car updateCar(@Valid @RequestBody Car car, @PathVariable long id){
         Car updatedCar = this.carService.updateCar(car,id);
         return updatedCar;

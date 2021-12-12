@@ -12,8 +12,11 @@ import java.util.*;
 
 @Service
 public class CarService {
+
     private final CarRepo carRepo;
     private final static Pageable PAGEABLE = PageRequest.of(0,100,Sort.Direction.ASC,"name","model");
+
+
     public CarService(CarRepo carRepo) {
         this.carRepo = carRepo;
     }
@@ -29,7 +32,8 @@ public class CarService {
     public Car getCarById(long id){
         Optional<Car> carOptional = this.carRepo.findById(id);
         if(carOptional.isPresent()) return carOptional.get();
-        else throw new NotFoundException("car not found id : "+ id);
+
+        throw new NotFoundException("car not found id : "+ id);
     }
 
     public Car saveCar(Car car){
@@ -46,9 +50,9 @@ public class CarService {
             originalCar.setHideMe(updatedCar.isHideMe());
             originalCar.setOwner(updatedCar.getOwner());
             return this.carRepo.save(originalCar);
-        }else {
-            throw new NotFoundException("car not found id : "+ id);
         }
+
+        throw new NotFoundException("car not found id : "+ id);
     }
 
     public void deleteCarById(long id){
